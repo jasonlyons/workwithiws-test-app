@@ -110,6 +110,7 @@
     }
 
 	function uploadPhoto(imageURI) {
+		/*
 		var options = new FileUploadOptions();
 		options.fileKey="file";
 		options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -125,7 +126,7 @@
 		var ft = new FileTransfer();
 	
 		ft.upload(imageURI, "http://app.iwssites.com/post.php", win, fail, options);
-		
+		*/
 		onPhotoDataSuccess(imageURI);
 		
 		$('#status').html('uploadPhoto');
