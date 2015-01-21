@@ -24,7 +24,10 @@
     // Called when a photo is successfully retrieved
     //
     function onPhotoDataSuccess2(imageData) {
-		alert('onPhotoDataSuccess2');
+		setTimeout(function() {
+			alert('onPhotoDataSuccess2');
+		}, 0);
+		
 		console.log('onPhotoURISuccess');
 		console.log(imageData);
         // Show the selected image
