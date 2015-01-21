@@ -17,7 +17,12 @@
         Jason Lyons
     </author>
 
+	
+	<gap:plugin name="org.apache.cordova.camera" />
+
+	<!-- 
 	<feature name="Camera">
 		<param name="ios-package" value="CDVCamera" />
 	</feature>
+	-->
 </widget>
