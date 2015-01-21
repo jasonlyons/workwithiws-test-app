@@ -17,7 +17,7 @@
         Jason Lyons
     </author>
 
-	
+	<preference name="phonegap-version" value="3.3.0" />
 	<gap:plugin name="org.apache.cordova.camera" />
 
 	<!-- 
