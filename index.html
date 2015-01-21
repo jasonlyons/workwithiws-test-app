@@ -20,6 +20,12 @@
 			alert("navigation not set");
 		else
 			alert("navigator is set");
+			
+		if (!navigator.camera)
+			alert("navigation.camera not set");
+		else
+			alert("navigator.camera is set");	
+			
 		pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
     }
