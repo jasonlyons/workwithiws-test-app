@@ -17,7 +17,12 @@
         Jason Lyons
     </author>
 
-	<feature name="http://api.phonegap.com/1.0/camera"/>
+	
+	<feature name="Camera">
+		<param name="ios-package" value="CDVCamera" />
+	</feature>
+
+	
     <feature name="http://api.phonegap.com/1.0/contacts"/>
     <feature name="http://api.phonegap.com/1.0/file"/>
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
