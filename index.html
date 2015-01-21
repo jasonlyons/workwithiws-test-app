@@ -24,14 +24,13 @@
     // Called when a photo is successfully retrieved
     //
     function onPhotoDataSuccess2(imageData) {
-		/*
 		setTimeout(function() {
 			alert('onPhotoDataSuccess2');
-		}, 0);
+		}, 5000);
 		
-		console.log('onPhotoURISuccess');
-		console.log(imageData);
-		*/
+		//console.log('onPhotoURISuccess');
+		//console.log(imageData);
+		
         // Show the selected image
         var smallImage = document.getElementById('smallImage');
         smallImage.style.display = 'block';
@@ -97,7 +96,7 @@
     </script>
   </head>
   <body>
-  here3
+  here4
     <form id="regform">
         <button onclick="getPhoto(pictureSource.CAMERA);">Select Photo:</button><br>
         <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
