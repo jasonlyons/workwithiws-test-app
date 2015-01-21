@@ -24,8 +24,8 @@
     // Called when a photo is successfully retrieved
     //
     function onPhotoURISuccess(imageURI) {
-		alert(imageURI);
-
+		console.log('onPhotoURISuccess');
+		console.log(imageURI);
         // Show the selected image
         var smallImage = document.getElementById('smallImage');
         smallImage.style.display = 'block';
@@ -37,7 +37,9 @@
     //
     function getPhoto(source) {
       // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+      console.log('getPhoto');
+	  
+	  navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
         destinationType: destinationType.DATA_URL,
         sourceType: source });
     }
