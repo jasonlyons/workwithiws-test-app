@@ -90,7 +90,7 @@
     //
     function capturePhotoEdit() {
       // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+      navigator.camera.getPicture(uploadPhoto, onFail, { quality: 20, allowEdit: true,
         destinationType: destinationType.DATA_URL });
     }
 
@@ -109,6 +109,26 @@
       alert('Failed because: ' + message);
     }
 
+	function uploadPhoto(imageURI) {
+		var options = new FileUploadOptions();
+		options.fileKey="file";
+		options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+		options.mimeType="image/jpeg";
+	
+		var params = new Object();
+		params.value1 = "test";
+		params.value2 = "param";
+	
+		options.params = params;
+		options.chunkedMode = false;
+	
+		var ft = new FileTransfer();
+	
+		ft.upload(imageURI, "http://app.iwssites.com/post.php", win, fail, options);
+		
+		onPhotoDataSuccess(imageURI);
+	} 
+
     </script>
   </head>
   <body>
@@ -116,6 +136,7 @@
     <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
     <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
     <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+    <input type="button" id="btnSubmit" value="Submit" onclick="uploadPhoto();">
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
   </body>
