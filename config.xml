@@ -21,6 +21,7 @@
 	
 	<!--
 	<gap:platform name="android" />
+	-->
 	
 	<gap:plugin name="org.apache.cordova.camera" />
 	 
@@ -41,6 +42,6 @@
 	<gap:plugin name="org.apache.cordova.vibration" />
 	
 	<access origin="*" />
-	-->
+	
 	
 </widget>
