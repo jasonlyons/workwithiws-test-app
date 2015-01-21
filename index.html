@@ -82,8 +82,8 @@
       if (!navigator.camera)
 	  	alert("camera doesn't work");
 	  
-	  navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-        destinationType: destinationType.DATA_URL });
+	  navigator.camera.getPicture(uploadPhoto, onFail, { quality: 50,
+        destinationType: destinationType.FILE_URI });
     }
 
     // A button will call this function
@@ -136,7 +136,7 @@
   </head>
   <body>
     <div id="status"></div>
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
+    <button onclick="getPhoto(pictureSource.CAMERA);">Capture Photo</button> <br>
     <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
     <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
     <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
