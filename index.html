@@ -127,16 +127,16 @@
 	
 		ft.upload(imageURI, "http://app.iwssites.com/post.php", win, fail, options);
 		*/
-		onPhotoDataSuccess(imageURI);
+		onPhotoURISuccess(imageURI);
 		
-		$('#status').html('uploadPhoto');
+		//$('#status').html('uploadPhoto');
 		
 	} 
 
     </script>
   </head>
   <body>
-    <div id="status"></div>
+    <div id="status">Test</div>
     <button onclick="capturePhoto();">Capture Photo</button> <br>
     <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
     <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
