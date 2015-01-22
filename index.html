@@ -6,7 +6,7 @@
         
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         
-        
+        <script src="lib/jquery-1.8.2.min.js"></script>    
         <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" /> 
         <script src="js/handlebars.min.js"></script>        
         <script src="js/jquery.mobile-1.4.2.min.js"></script>    
@@ -27,7 +27,7 @@
         
         <script>
 		$(document).on('pageinit', '#home', function(){      
-		
+			alert('here');
 			$(document).on('click', '#search-movie', function(){ 
 				if($('#movie-title').val().length > 0) {
 					var url = 'http://api.themoviedb.org/3/',
