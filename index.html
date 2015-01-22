@@ -112,30 +112,57 @@
 	function uploadPhoto(imageURI) {
 		alert(imageURI);
 		
+		app_log("in upload photo");
 		
-		var options = new FileUploadOptions();
-		options.fileKey="file";
-		options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
-		options.mimeType="image/jpeg";
+		
+		try {
+			app_log("FileUploadOptions");
 			
+			var options = new FileUploadOptions();
+			options.fileKey="file";
+			options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+			options.mimeType="image/jpeg";
+				
+		
+			var params = new Object();
+			params.value1 = "test";
+			params.value2 = "param";
+		
+			options.params = params;
+			options.chunkedMode = false;
+		} catch (e) {
+			app_log(e);	
+		}
 	
-		var params = new Object();
-		params.value1 = "test";
-		params.value2 = "param";
-	
-		options.params = params;
-		options.chunkedMode = false;
-	
-		var ft = new FileTransfer();
-	
-		ft.upload(imageURI, "http://app.iwssites.com/post.php", win, fail, options);
+		try {
+			app_log("FileTransfer");
+			var ft = new FileTransfer();
+		
+			ft.upload(imageURI, "http://app.iwssites.com/post.php", win, fail, options);
+		} catch (e) {
+			app_log(e);	
+		}
 
-
-		onPhotoURISuccess(imageURI);
+		try {
+			app_log("onPhotoURISuccess");
+			onPhotoURISuccess(imageURI);
+		} catch (e) {
+			app_log(e);	
+		}
 		
 		//$('#status').html('uploadPhoto');
 		
 	} 
+
+	function app_log(something) { 
+          if (something instanceof Date) { 
+            something = something.toDateString(); 
+          } 
+            if (typeof something == 'object') { 
+              something = JSON.stringify(something); 
+            } 
+            console.log(something); 
+    } 
 
     </script>
   </head>
