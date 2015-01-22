@@ -109,10 +109,24 @@
       alert('Failed because: ' + message);
     }
 
+	function clearCache() {
+		navigator.camera.cleanup();
+	}
+
 	function uploadPhoto(imageURI) {
-		alert(imageURI);
+		app_log(imageURI);
 		
 		app_log("in upload photo");
+		
+		var win = function (r) {
+			clearCache();
+			app_log('Done!');
+		}
+	 
+		var fail = function (error) {
+			clearCache();
+			app_log('Error!');
+		}
 		
 		
 		try {
@@ -125,11 +139,13 @@
 				
 		
 			var params = new Object();
-			params.value1 = "test";
-			params.value2 = "param";
+			params.title = "app test";
 		
 			options.params = params;
-			options.chunkedMode = false;
+			//options.chunkedMode = false;
+			options.chunkedMode = true;
+			options.headers = {Connection: "close"};
+			
 		} catch (e) {
 			app_log(e);	
 		}
