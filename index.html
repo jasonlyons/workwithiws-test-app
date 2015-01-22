@@ -20,9 +20,9 @@
     //
     function onDeviceReady() {
         if (!navigator)
-			alert("navigation not set");
+			app.showAlert("showAlert navigation not set");
 		else
-			alert("navigator is set");
+			app.showAlert("showAlert navigator is set");
 			
 		
 			
@@ -132,6 +132,7 @@
 			params.title = "app test";
 		
 			options.params = params;
+			//possibly spead it up by setting below to true.
 			options.chunkedMode = false;
 		
 		} catch (e) {
@@ -193,4 +194,6 @@
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
   </body>
+  <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+  
 </html>

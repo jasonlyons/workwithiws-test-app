@@ -8,6 +8,7 @@ var app = {
         }
     },
 
+/*
     registerEvents: function() {
         $(window).on('hashchange', $.proxy(this.route, this));
         $('body').on('mousedown', 'a', function(event) {
@@ -85,7 +86,7 @@ var app = {
             self.route();
         });
     }
-
+*/
 };
 
 app.initialize();
