@@ -1,199 +1,133 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Capture Photo</title>
-
-    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
-    <!-- possibly this line instead of cordova.js
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    -->
-    <script type="text/javascript" charset="utf-8">
-
-    var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value
-
-    // Wait for device API libraries to load
-    //
-    document.addEventListener("deviceready",onDeviceReady,false);
-
-    // device APIs are available
-    //
-    function onDeviceReady() {
-        if (!navigator)
-			app.showAlert("showAlert navigation not set");
-		else
-			app.showAlert("showAlert navigator is set");
-			
-		
-			
-		pictureSource=navigator.camera.PictureSourceType;
-        destinationType=navigator.camera.DestinationType;
-		
-		if (!navigator.camera)
-			alert("navigation.camera not set");
-		else
-			alert("navigator.camera is set");	
-    }
-
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoDataSuccess(imageData) {
-      // Uncomment to view the base64-encoded image data
-      // console.log(imageData);
-
-      // Get image handle
-      //
-      var smallImage = document.getElementById('smallImage');
-
-      // Unhide image elements
-      //
-      smallImage.style.display = 'block';
-
-      // Show the captured photo
-      // The in-line CSS rules are used to resize the image
-      //
-      smallImage.src = "data:image/jpeg;base64," + imageData;
-    }
-
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoURISuccess(imageURI) {
-      // Uncomment to view the image file URI
-      // console.log(imageURI);
-
-      // Get image handle
-      //
-      var largeImage = document.getElementById('largeImage');
-
-      // Unhide image elements
-      //
-      largeImage.style.display = 'block';
-
-      // Show the captured photo
-      // The in-line CSS rules are used to resize the image
-      //
-      largeImage.src = imageURI;
-    }
-
-    // A button will call this function
-    //
-    function capturePhoto() {
-      // Take picture using device camera and retrieve image as base64-encoded string
-      if (!navigator.camera)
-	  	alert("camera doesn't work");
-	  
-	  navigator.camera.getPicture(uploadPhoto, onFail, { quality: 50,
-        destinationType: destinationType.FILE_URI });
-    }
-
-    // A button will call this function
-    //
-    function capturePhotoEdit() {
-      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-      navigator.camera.getPicture(uploadPhoto, onFail, { quality: 20, allowEdit: true,
-        destinationType: destinationType.DATA_URL });
-    }
-
-    // A button will call this function
-    //
-    function getPhoto(source) {
-      // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-    }
-
-    // Called if something bad happens.
-    //
-    function onFail(message) {
-      alert('Failed because: ' + message);
-    }
-
-	function clearCache() {
-		navigator.camera.cleanup();
-	}
-
-	function uploadPhoto(imageURI) {
-		app_log(imageURI);
-		
-		app_log("in upload photo");
-		
-		
-		try {
-			app_log("FileUploadOptions");
-			
-			var options = new FileUploadOptions();
-			options.fileKey="file";
-			options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
-			options.mimeType="image/jpeg";
-				
-		
-			var params = new Object();
-			params.title = "app test";
-		
-			options.params = params;
-			//possibly spead it up by setting below to true.
-			options.chunkedMode = false;
-		
-		} catch (e) {
-			app_log("error in upload options");	
-			app_log(e);	
+    <head>
+        <title>jQM Complex Demo</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
+        
+        <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        
+        
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" /> 
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js"></script>        
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>    
+        
+        <style>
+		.ui-content {
+			padding: 0 !important;
 		}
-	
-		try {
-			app_log("FileTransfer");
-			var ft = new FileTransfer();
-		
-			ft.upload(imageURI, "http://app.iwssites.com/post.php", win, fail, options);
-		} catch (e) {
-			app_log("error in filetransfer");	
-			app_log(e);	
+		 
+		.ui-listview {
+			margin: 0 !important;
 		}
-
-		try {
-			app_log("onPhotoURISuccess");
-			onPhotoURISuccess(imageURI);
-		} catch (e) {
-			app_log("error in onphotouri success");	
-			app_log(e);	
+		 
+		.example-wrapper, .example-wrapper div.iscroll-scroller {
+			width: 100% !important;
+		}
+		</style>
+        
+        <script>
+		$(document).on('pageinit', '#home', function(){      
+		
+			$(document).on('click', '#search-movie', function(){ 
+				if($('#movie-title').val().length > 0) {
+					var url = 'http://api.themoviedb.org/3/',
+						mode = 'search/movie?query=',
+						movieName = '&query='+encodeURI($('#movie-title').val()),        
+						key = '&api_key=470fd2ec8853e25d2f8d86f685d2270e';        
+					
+					$.ajax({
+						url: url + mode + key + movieName ,
+						dataType: "jsonp",
+						async: true,
+						success: function (result) {
+							ajax.parseJSONP(result);
+						},
+						error: function (request,error) {
+							alert('Network error has occurred please try again!');
+						}
+					});          
+				} else {
+					alert('Please enter mobie title!');
+				}       
+			});        
+		});
+		
+		$(document).on('pagebeforeshow', '#headline', function(){      
+			$('#movie-data').empty();
+			$.each(movieInfo.result, function(i, row) {
+				if(row.id == movieInfo.id) {
+					var movieHandler = Handlebars.compile($("#movie-template").html());
+					$('#movie-data').html(movieHandler(row));                
+				} 
+			});          
+			$('#movie-data').listview('refresh');     
+		});
+		
+		$(document).on('vclick', '#movie-list li a', function(){  
+			movieInfo.id = $(this).attr('data-id');
+			$.mobile.changePage( "#headline", { transition: "slide", changeHash: false });
+		});
+		
+		var movieInfo = {
+			id : null,
+			result : null
 		}
 		
-		//$('#status').html('uploadPhoto');
-		
-	} 
-
- 	function win(r) {
-		app_log(r);
-		alert(r.response);
-	}
-
-	function fail(error) {
-		app_log(error);
-		alert("An error has occurred: Code = " + error.code);
-	} 
-
-	function app_log(something) { 
-          if (something instanceof Date) { 
-            something = something.toDateString(); 
-          } 
-            if (typeof something == 'object') { 
-              something = JSON.stringify(something); 
-            } 
-            console.log(something); 
-    } 
-
-    </script>
-  </head>
-  <body>
-    <div id="status">Test</div>
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
-    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-    <!-- <input type="button" id="btnSubmit" value="Submit" onclick="uploadPhoto();"> -->
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
-  </body>
-  <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
-  
-</html>
+		var ajax = {  
+			parseJSONP:function(result){  
+				movieInfo.result = result.results;
+				$('#movie-list').empty(); 
+				var movieListHandler = Handlebars.compile($("#movies-template").html());
+				$('#movie-list').html(movieListHandler(result.results));         
+				$('#movie-list').listview('refresh');
+			}
+		}
+		</script>
+        
+    </head>
+    <body>
+        <div data-role="page" id="home">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Movie List
+                </h3>
+            </div>        
+            <div data-role="content">
+                <div class="example-wrapper" data-iscroll>
+                    <input name="movie-title" id="movie-title" value="" type="text" placeholder="Enter Movie Title"/>            
+                    <a href="#" class="ui-btn" id="search-movie">Search</a>
+                    <script id="movies-template" type="text/x-handlebars-template">
+                        {{#.}}
+                        <li><a data-id="{{this.id}}"><img src="{{this.poster_path}}"/><h3>{{this.title}}</h3><p>{{this.release_date}}</p></a></li>
+                        {{/.}}
+                    </script>                      
+                    <ul data-role="listview"  id="movie-list" data-theme="a">
+                        
+                    </ul>
+                </div>
+            </div>            
+        </div>
+        <div data-role="page" id="headline">
+            <div data-theme="a" data-role="header">
+                <a href="#home" class="ui-btn-left" data-transition="slide" data-direction="reverse">Back</a>                        
+                <h3>
+                    Movie Info
+                </h3>
+            </div>        
+            <div data-role="content">
+                <script id="movie-template" type="text/x-handlebars-template">
+                    {{#.}}
+                    <li><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185{{this.poster_path}}"/></li>
+                    <li>Title: {{this.original_title}}</li>
+                    <li>Release date : {{this.release_date}}</li>
+                    <li>Popularity : {{this.popularity}}</li>
+                    <li>Popularity : {{this.vote_average}}</li>
+                    {{/.}}
+                </script>                  
+                <ul data-role="listview"  id="movie-data" data-theme="a">
+                    
+                </ul>
+            </div>
+        </div>    
+    </body>
+</html>   
