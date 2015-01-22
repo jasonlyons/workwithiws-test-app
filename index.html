@@ -118,16 +118,6 @@
 		
 		app_log("in upload photo");
 		
-		var win = function (r) {
-			clearCache();
-			app_log('Done!');
-		}
-	 
-		var fail = function (error) {
-			clearCache();
-			app_log('Error!');
-		}
-		
 		
 		try {
 			app_log("FileUploadOptions");
@@ -142,11 +132,10 @@
 			params.title = "app test";
 		
 			options.params = params;
-			//options.chunkedMode = false;
-			options.chunkedMode = true;
-			options.headers = {Connection: "close"};
-			
+			options.chunkedMode = false;
+		
 		} catch (e) {
+			app_log("error in upload options");	
 			app_log(e);	
 		}
 	
@@ -156,6 +145,7 @@
 		
 			ft.upload(imageURI, "http://app.iwssites.com/post.php", win, fail, options);
 		} catch (e) {
+			app_log("error in filetransfer");	
 			app_log(e);	
 		}
 
@@ -163,11 +153,22 @@
 			app_log("onPhotoURISuccess");
 			onPhotoURISuccess(imageURI);
 		} catch (e) {
+			app_log("error in onphotouri success");	
 			app_log(e);	
 		}
 		
 		//$('#status').html('uploadPhoto');
 		
+	} 
+
+ 	function win(r) {
+		app_log(r);
+		alert(r.response);
+	}
+
+	function fail(error) {
+		app_log(error);
+		alert("An error has occurred: Code = " + error.code);
 	} 
 
 	function app_log(something) { 
